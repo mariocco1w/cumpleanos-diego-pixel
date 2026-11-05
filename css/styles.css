@@ -1,0 +1,202 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+
+:root {
+  --night: #101321;
+  --purple: #7954a6;
+  --lilac: #b49ad8;
+  --pink: #ff9bd4;
+  --cream: #fff0c9;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; min-height: 100vh; padding: 22px 14px 38px;
+  color: #f8efff;
+  background: radial-gradient(ellipse at 50% 20%, #343252 0%, #191b2d 48%, #0d101b 100%);
+  font-family: 'VT323', monospace; overflow-x: hidden;
+}
+.game { width: min(960px, 100%); margin: auto; position: relative; z-index: 1; }
+.hud {
+  display:flex; justify-content:space-between; gap:10px; padding:13px 15px;
+  border:3px solid #9e8bc4; background:#17192a; box-shadow:5px 5px 0 #070910;
+  font:9px 'Press Start 2P', monospace; color:#d9c9f4;
+}
+.hud-center { color:#f8d98c; }
+.intro { text-align:center; padding:34px 8px 22px; }
+.eyebrow { margin:0 0 13px; color:#f8d98c; letter-spacing:3px; font-size:22px; }
+h1 { margin:0; font:clamp(20px,4.2vw,38px)/1.5 'Press Start 2P',monospace; text-shadow:4px 4px #574276; }
+h1 span { color:var(--pink); }
+.subtitle { margin:12px 0 0; font-size:25px; color:#c8bddc; }
+
+.cemetery {
+  height: min(570px, 67vw); min-height:410px; position:relative; overflow:hidden; isolation:isolate;
+  border:4px solid #9584b8; box-shadow:8px 8px 0 #070910, inset 0 0 0 4px #17192a;
+  background:linear-gradient(#171a31 0%,#292744 54%,#45405b 100%);
+}
+.cemetery::after {
+  content:""; position:absolute; inset:0; pointer-events:none; z-index:9; opacity:.1;
+  background:repeating-linear-gradient(transparent 0 3px,#000 4px 5px);
+}
+.moon {
+  position:absolute; width:86px; height:86px; top:42px; right:13%;
+  border-radius:50%; background:#f6e7bb; box-shadow:0 0 0 9px #f6e7bb18,0 0 48px #f6e7bb55;
+}
+.moon-crater { position:absolute; z-index:1; border-radius:50%; background:#d7c99f; opacity:.65; }
+.crater-one { width:14px;height:14px;top:65px;right:calc(13% + 20px); }
+.crater-two { width:8px;height:8px;top:96px;right:calc(13% + 49px); }
+.stars {
+  position:absolute; inset:0; opacity:.75;
+  background-image:radial-gradient(#fff 1px,transparent 1.8px),radial-gradient(#d7c5ff 1px,transparent 2px);
+  background-size:57px 63px,91px 79px; background-position:8px 4px,33px 21px;
+  animation:twinkle 2.4s steps(2) infinite alternate;
+}
+@keyframes twinkle { to { opacity:.3; } }
+.hill { position:absolute; left:-8%; width:116%; border-radius:50% 50% 0 0; }
+.hill-back { height:190px; bottom:90px; background:#292b42; }
+.hill-front { height:170px; bottom:0; background:linear-gradient(#33334a,#202638); }
+.crypt {
+  position:absolute; bottom:135px; width:125px; height:118px; z-index:2;
+  background:#3f4055; border:5px solid #171a2b; box-shadow:inset 0 0 0 4px #66617a;
+}
+.crypt::before {
+  content:""; position:absolute; left:-12px; top:-22px; width:135px; height:25px;
+  background:#626078; border:5px solid #171a2b;
+}
+.crypt i { position:absolute; left:38px; bottom:0; width:40px; height:66px; background:#202336; border:4px solid #171a2b; border-bottom:0; border-radius:20px 20px 0 0; }
+.crypt b { position:absolute; top:22px; width:100%; text-align:center; color:#aaa3ba; font:10px 'Press Start 2P'; }
+.crypt-left { left:5%; transform:scale(.82); }
+.crypt-right { right:4%; transform:scale(.72); }
+.tombstone {
+  position:absolute; z-index:3; bottom:115px; width:62px; height:82px;
+  border:4px solid #171a2b; border-radius:25px 25px 0 0;
+  background:linear-gradient(90deg,#66677a,#9692a1 50%,#5a5b70);
+  box-shadow:inset 0 0 0 3px #aaa4b4;
+}
+.tombstone span { display:block; text-align:center; margin-top:31px; font:8px 'Press Start 2P'; color:#343448; }
+.stone-one { left:25%; transform:scale(.75); bottom:145px; }
+.stone-two { left:43%; transform:scale(.92); bottom:115px; }
+.stone-three { right:27%; transform:scale(.72); bottom:155px; }
+.stone-four { right:8%; transform:scale(.55); bottom:120px; }
+.cross { position:absolute; z-index:3; color:#9d9bad; font-size:37px; bottom:170px; }
+.cross-one { left:16%; } .cross-two { right:18%; bottom:190px; }
+.path {
+  position:absolute; z-index:3; bottom:-90px; left:28%; width:45%; height:210px;
+  background:#555064; clip-path:polygon(35% 0,65% 0,100% 100%,0 100%);
+  opacity:.75;
+}
+.fog {
+  position:absolute; z-index:5; height:30px; width:55%; border-radius:50%;
+  background:#c4c0d8; filter:blur(15px); opacity:.14;
+  animation:fog-drift 10s ease-in-out infinite alternate;
+}
+.fog-one { left:-5%; bottom:95px; }
+.fog-two { right:-10%; bottom:175px; animation-delay:-4s; }
+@keyframes fog-drift { to { transform:translateX(90px); opacity:.25; } }
+
+.sprite {
+  position:absolute; width:clamp(105px,16vw,155px); aspect-ratio:3/4;
+  background-image:url('../assets/spritesheet.png'); background-repeat:no-repeat;
+  background-size:400% 200%; image-rendering:pixelated;
+  mix-blend-mode:screen; filter:drop-shadow(0 7px 0 #11132299);
+}
+.human-walk {
+  position:absolute; z-index:6; left:-20%; bottom:105px; width:clamp(105px,16vw,155px);
+  height:190px; animation:walk-across 7.5s linear 1.2s forwards;
+}
+.human { inset:0; background-position:0 0; animation:human-steps .72s steps(1) infinite; }
+@keyframes human-steps {
+  0%,100% { background-position:0 0; }
+  25% { background-position:33.333% 0; }
+  50% { background-position:66.666% 0; }
+  75% { background-position:100% 0; }
+}
+@keyframes walk-across {
+  0% { left:-20%; transform:translateY(0); }
+  45% { left:34%; transform:translateY(0); }
+  53% { left:39%; transform:translateY(-5px); }
+  100% { left:39%; transform:translateY(0); }
+}
+.foot-shadow { position:absolute; bottom:4px; left:25%; width:55%; height:12px; background:#090c16; border-radius:50%; filter:blur(3px); opacity:.55; }
+.earth-burst { position:absolute; z-index:6; right:18%; bottom:94px; width:150px; height:100px; opacity:0; }
+.earth-burst i { position:absolute; width:13px; height:13px; background:#8b704e; border:3px solid #201b2b; }
+.earth-burst i:nth-child(1){left:5px;top:45px}.earth-burst i:nth-child(2){left:35px;top:12px}.earth-burst i:nth-child(3){left:72px;top:0}.earth-burst i:nth-child(4){right:20px;top:25px}.earth-burst i:nth-child(5){right:0;top:60px}.earth-burst i:nth-child(6){left:65px;bottom:0}
+.gengar-emerge {
+  position:absolute; z-index:7; right:17%; bottom:93px; width:clamp(130px,19vw,180px); height:210px;
+  transform:translateY(190px); animation:gengar-rise 1.2s steps(6) 8.2s forwards;
+}
+.gengar {
+  left:0; bottom:0; width:100%; background-position:0 100%;
+  animation:gengar-frames .85s steps(1) infinite, ghost-hover 1.6s ease-in-out 9.4s infinite;
+}
+@keyframes gengar-frames {
+  0%,100% { background-position:0 100%; }
+  25% { background-position:33.333% 100%; }
+  50% { background-position:66.666% 100%; }
+  75% { background-position:100% 100%; }
+}
+@keyframes gengar-rise { to { transform:translateY(0); } }
+@keyframes ghost-hover { 50% { transform:translateY(-13px) rotate(2deg); } }
+.gengar-shadow { position:absolute; bottom:2px; left:20%; width:60%; height:15px; background:#090c16; border-radius:50%; filter:blur(4px); opacity:.7; }
+.cake {
+  position:absolute; z-index:3; left:50%; top:5px; width:55px; height:51px;
+  transform:translateX(-50%) scale(.2); opacity:0;
+  animation:cake-show .55s steps(4) 9.3s forwards;
+}
+.cake-base { position:absolute; bottom:0; width:55px; height:30px; border:4px solid #271b35; background:repeating-linear-gradient(180deg,#ff8fc5 0 8px,#d75e9a 8px 14px); }
+.cake-icing { position:absolute; bottom:25px; width:55px; height:12px; border:4px solid #271b35; border-radius:50%; background:#fff0d2; }
+.candle { position:absolute; z-index:2; top:-5px; left:25px; height:14px; width:6px; background:#8ee6e1; border:2px solid #271b35; }
+.flame { position:absolute; z-index:3; top:-17px; left:24px; width:9px; height:13px; background:#ffdc70; box-shadow:0 0 12px #ffdc70; animation:flame-flicker .3s steps(2) infinite alternate; }
+@keyframes cake-show { to { transform:translateX(-50%) scale(1); opacity:1; } }
+@keyframes flame-flicker { to { transform:scale(.7) rotate(8deg); } }
+
+.dialogue {
+  position:absolute; z-index:8; padding:9px 12px; background:#fff3d6; color:#211b30;
+  border:3px solid #211b30; box-shadow:4px 4px #090c16;
+  font-size:22px; opacity:0; white-space:nowrap;
+}
+.dialogue-one { left:27%; top:35%; animation:dialogue-pop .4s steps(3) 6.1s forwards; }
+.dialogue-two { right:11%; top:28%; animation:dialogue-pop .4s steps(3) 9.5s forwards; }
+@keyframes dialogue-pop { to { opacity:1; transform:translateY(-5px); } }
+.scene-caption {
+  position:absolute; z-index:8; bottom:17px; width:100%; text-align:center;
+  color:#f6e6b9; font:8px 'Press Start 2P'; letter-spacing:1px;
+}
+.message {
+  max-width:730px; margin:30px auto 18px; padding:22px 24px; text-align:center;
+  background:#1b1d30; border:3px solid #8d7cae; box-shadow:6px 6px #070910;
+}
+.pixel-star { color:#ffdb83; font-size:30px; }
+.message p { margin:8px 0 12px; color:#e0d7ed; font-size:27px; line-height:1.15; }
+.message strong { display:block; color:#ff9bd4; font-size:27px; font-weight:normal; }
+.signature { display:block; margin-top:12px; color:#a9a0bd; font-size:20px; }
+.replay {
+  display:block; margin:24px auto 12px; padding:15px 17px; cursor:pointer;
+  border:3px solid #fff0c9; background:#f6d889; color:#211b30;
+  box-shadow:5px 5px #070910; font:9px 'Press Start 2P';
+}
+.replay:active { transform:translate(3px,3px); box-shadow:2px 2px #070910; }
+.footer { text-align:center; color:#aaa0bd; font-size:19px; letter-spacing:3px; }
+.confetti-layer { position:fixed; inset:0; overflow:hidden; pointer-events:none; z-index:20; }
+.confetti { position:absolute; top:-20px; width:8px; height:12px; animation:confetti-fall var(--duration) linear forwards; }
+@keyframes confetti-fall { to { transform:translate3d(var(--drift),110vh,0) rotate(720deg); opacity:.1; } }
+
+@media(max-width:620px) {
+  body { padding:12px 9px 25px; }
+  .hud { font-size:7px; padding:11px 8px; }
+  .hud-center { display:none; }
+  .intro { padding:28px 5px 18px; }
+  .cemetery { min-height:390px; height:115vw; max-height:510px; }
+  .human-walk { bottom:95px; }
+  .gengar-emerge { right:8%; bottom:90px; }
+  .crypt-left { left:-7%; }.crypt-right { right:-8%; }
+  .stone-one { left:22%; }.stone-two { left:42%; }
+  .dialogue { font-size:17px; padding:7px 8px; }
+  .dialogue-one { left:16%; top:34%; }
+  .dialogue-two { right:4%; top:25%; }
+  .scene-caption { font-size:6px; }
+  .message { padding:17px 13px; }
+  .message p,.message strong { font-size:23px; }
+  .replay { font-size:8px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  *,*::before,*::after { animation-duration:.01ms!important; animation-iteration-count:1!important; scroll-behavior:auto!important; }
+}
